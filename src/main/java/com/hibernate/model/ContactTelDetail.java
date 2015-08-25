@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -17,6 +19,9 @@ public class ContactTelDetail implements Serializable {
 	private int version;
 	private String telType;
 	private String telNumber;
+	private Contact contact;
+	
+	public ContactTelDetail() {}
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -55,5 +60,21 @@ public class ContactTelDetail implements Serializable {
 
 	public void setTelNumber(String telNumber) {
 		this.telNumber = telNumber;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="CONTACT_ID")
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+	
+	public String toString() {
+		return "Contact Tel Detail - Id: " + id + ", Contact id: "
+		+ getContact().getId() + ", Type: "
+		+ telType + ", Number: " + telNumber;
 	}
 }

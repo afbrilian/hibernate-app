@@ -2,16 +2,22 @@ package com.hibernate.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name="contact")
@@ -21,6 +27,9 @@ public class Contact implements Serializable {
 	private String firstName;
 	private String lastName;
 	private Date birthDate;
+	private Set<ContactTelDetail> contactTelDetails = new HashSet<ContactTelDetail>();
+	
+	public Contact() {}
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -71,8 +80,26 @@ public class Contact implements Serializable {
 		this.birthDate = birthDate;
 	}
 	
+	@OneToMany(mappedBy="contact", cascade=CascadeType.ALL, orphanRemoval=true)
+	public Set<ContactTelDetail> getContactTelDetails() {
+		return contactTelDetails;
+	}
+
+	public void setContactTelDetails(Set<ContactTelDetail> contactTelDetails) {
+		this.contactTelDetails = contactTelDetails;
+	}
+	
+	public void addContactTelDetail(ContactTelDetail contactTelDetail) {
+		contactTelDetail.setContact(this);
+		getContactTelDetails().add(contactTelDetail);
+	}
+	
+	public void removeContactTelDetail(ContactTelDetail contactTelDetail) {
+		getContactTelDetails().remove(contactTelDetail);
+	}
+	
 	public String toString() {
 		return "Contact - Id: " + id + ", First name: " + firstName
 		+ ", Last name: " + lastName + ", Birthday: " + birthDate;
-		}
+	}
 }
