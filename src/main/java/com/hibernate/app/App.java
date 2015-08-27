@@ -1,5 +1,6 @@
 package com.hibernate.app;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -27,6 +28,29 @@ public class App {
         System.out.println();
         System.out.println("contact with id 1 = " + contactDao.findById(1l));
         System.out.println();
+        
+        saveContact(contactDao);
+    }
+    
+    private static void saveContact(ContactDao contactDao){
+    	System.out.println();
+    	Contact contact = new Contact();
+    	contact.setFirstName("Michael");
+    	contact.setLastName("Jackson");
+    	contact.setBirthDate(new Date());
+    	
+    	ContactTelDetail contactTelDetail =	new ContactTelDetail();
+    	contactTelDetail.setTelType("Home");
+    	contactTelDetail.setTelNumber("1111111111");
+    	contact.addContactTelDetail(contactTelDetail);
+    	
+    	contactTelDetail = new ContactTelDetail();
+    	contactTelDetail.setTelType("Mobile");
+    	contactTelDetail.setTelNumber("2222222222");
+    	contact.addContactTelDetail(contactTelDetail);
+    	
+    	contactDao.save(contact);
+    	listContactsWithDetail(contactDao.findAllWithDetail());
     }
     
     private static void listContacts(List<Contact> contacts) {

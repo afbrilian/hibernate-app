@@ -35,8 +35,9 @@ public class ContactDaoImpl implements ContactDao {
 	}
 
 	public Contact save(Contact contact) {
-		// TODO Auto-generated method stub
-		return null;
+		sessionFactory.getCurrentSession().saveOrUpdate(contact);
+		LOG.info("Contact saved with id: " + contact.getId());
+		return contact;
 	}
 
 	public void delete(Contact contact) {
