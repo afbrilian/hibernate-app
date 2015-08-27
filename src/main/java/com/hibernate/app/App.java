@@ -2,6 +2,7 @@ package com.hibernate.app;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 
@@ -29,8 +30,29 @@ public class App {
         System.out.println("contact with id 1 = " + contactDao.findById(1l));
         System.out.println();
         
-        saveContact(contactDao);
+        //saveContact(contactDao);
+        updateContact(contactDao);
     }
+    
+    private static void updateContact(ContactDao contactDao){
+    	System.out.println();
+    	Contact contact= contactDao.findById(1l);
+    	contact.setFirstName("Kim Fung");
+
+		Set<ContactTelDetail> contactTels = contact.getContactTelDetails();
+
+		ContactTelDetail toDeleteContactTel = null;
+
+		for (ContactTelDetail contactTel : contactTels) {
+			if (contactTel.getTelType().equals("Home")) {
+				toDeleteContactTel = contactTel;
+			}
+		}
+		contact.removeContactTelDetail(toDeleteContactTel);
+		contactDao.save(contact);
+		listContactsWithDetail(contactDao.findAllWithDetail());
+
+	}
     
     private static void saveContact(ContactDao contactDao){
     	System.out.println();
