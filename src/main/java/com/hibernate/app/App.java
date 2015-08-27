@@ -31,7 +31,15 @@ public class App {
         System.out.println();
         
         //saveContact(contactDao);
-        updateContact(contactDao);
+        //updateContact(contactDao);
+        deleteContact(contactDao);
+    }
+    
+    private static void deleteContact(ContactDao contactDao){
+    	Contact contact = contactDao.findById(4l);
+    	contactDao.delete(contact);
+    	
+    	listContactsWithDetail(contactDao.findAllWithDetail());
     }
     
     private static void updateContact(ContactDao contactDao){

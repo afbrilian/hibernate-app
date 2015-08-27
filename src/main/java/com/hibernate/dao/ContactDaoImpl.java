@@ -41,8 +41,8 @@ public class ContactDaoImpl implements ContactDao {
 	}
 
 	public void delete(Contact contact) {
-		// TODO Auto-generated method stub
-		
+		sessionFactory.getCurrentSession().delete(contact);
+		LOG.info("Contact deleted with id: " + contact.getId());
 	}
 
 }
