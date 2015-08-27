@@ -23,6 +23,10 @@ public class App {
         
         listContacts(contactDao.findAll());
         listContactsWithDetail(contactDao.findAllWithDetail());
+        
+        System.out.println();
+        System.out.println("contact with id 1 = " + contactDao.findById(1l));
+        System.out.println();
     }
     
     private static void listContacts(List<Contact> contacts) {
