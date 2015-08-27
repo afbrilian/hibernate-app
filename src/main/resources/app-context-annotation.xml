@@ -37,7 +37,7 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
 		p:dataSource-ref="dataSource" 
-		p:packagesToScan="com.hibernate.dao"
+		p:packagesToScan="com.hibernate.model"
 		p:hibernateProperties-ref="hibernateProperties" />
 	
 	<util:properties id="hibernateProperties">

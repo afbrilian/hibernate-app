@@ -18,10 +18,10 @@ public class ContactDaoImpl implements ContactDao {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	
+	@Transactional(readOnly=true)
 	public List<Contact> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return sessionFactory.getCurrentSession().createQuery("from Contact c").list();
 	}
 
 	public List<Contact> findAllWithDetail() {
