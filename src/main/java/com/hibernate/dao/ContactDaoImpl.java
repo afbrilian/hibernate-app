@@ -23,10 +23,10 @@ public class ContactDaoImpl implements ContactDao {
 	public List<Contact> findAll() {
 		return sessionFactory.getCurrentSession().createQuery("from Contact c").list();
 	}
-
+	
+	@Transactional(readOnly=true)
 	public List<Contact> findAllWithDetail() {
-		// TODO Auto-generated method stub
-		return null;
+		return sessionFactory.getCurrentSession().getNamedQuery("Contact.findAllWithDetail").list();
 	}
 
 	public Contact findById(Long id) {
